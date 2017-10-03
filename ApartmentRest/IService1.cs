@@ -27,11 +27,11 @@ namespace ApartmentRest
         IList<Apartment> GetApartmentByPostalCode(string PostalCode);
 
 
-        [OperationContract]
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "apartment/{location}")]
-        IList<Apartment> GetAllApartmentByLocation(string location);
+        //[OperationContract]
+        //[WebInvoke(Method = "GET",
+        //    ResponseFormat = WebMessageFormat.Json,
+        //    UriTemplate = "apartment/{location}")]
+        //IList<Apartment> GetAllApartmentByLocation(string location);
 
     }
 

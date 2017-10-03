@@ -66,28 +66,28 @@ namespace ApartmentRest
         }
 
 
-        public IList<Apartment> GetAllApartmentByLocation(string location)
-        {
-            string sqlstring = $"Select * from dbo.apartment like location = {location}";
+        //public IList<Apartment> GetAllApartmentByLocation(string location)
+        //{
+        //    string sqlstring = $"Select * from dbo.apartment like location = {location}";
 
-            using (SqlConnection sqlConnection = new SqlConnection(GetConnectionString()))
-            {
-                sqlConnection.Open();
-                using (var sqlcommand = new SqlCommand(sqlstring, sqlConnection))
-                {
-                    using (var reader = sqlcommand.ExecuteReader())
-                    {
-                        List<Apartment> liste = new List<Apartment>();
-                        while (reader.Read())
-                        {
-                            Apartment _apartment = ReadApartment(reader);
-                            liste.Add(_apartment);
-                        }
-                        return liste;
-                    }
-                }
-            }
-        }
+        //    using (SqlConnection sqlConnection = new SqlConnection(GetConnectionString()))
+        //    {
+        //        sqlConnection.Open();
+        //        using (var sqlcommand = new SqlCommand(sqlstring, sqlConnection))
+        //        {
+        //            using (var reader = sqlcommand.ExecuteReader())
+        //            {
+        //                List<Apartment> liste = new List<Apartment>();
+        //                while (reader.Read())
+        //                {
+        //                    Apartment _apartment = ReadApartment(reader);
+        //                    liste.Add(_apartment);
+        //                }
+        //                return liste;
+        //            }
+        //        }
+        //    }
+        //}
 
         //vores læse metode vi kan bruge sammen med reader - den sætter bare læste værdier ind på nyt obj
         private static Apartment ReadApartment(IDataRecord reader)
