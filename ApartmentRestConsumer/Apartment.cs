@@ -27,5 +27,10 @@ namespace ApartmentRestConsumer
 
         }
 
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Price: {Price}, Location: {Location}, PostalCode: {PostalCode}, Size: {Size}, NoRoom: {NoRoom}, WashingMachine: {WashingMachine}, Dishwasher: {Dishwasher}";
+        }
     }
 }

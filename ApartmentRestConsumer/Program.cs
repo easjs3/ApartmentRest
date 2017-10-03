@@ -14,12 +14,13 @@ namespace ApartmentRestConsumer
         {
             foreach (var i in GetCustomersAsync().Result)
             {
-                Console.WriteLine(i.Price);
+                Console.WriteLine(i.ToString());
             }
 
+            
+            Console.ReadLine();
 
 
-         
         }
 
 
