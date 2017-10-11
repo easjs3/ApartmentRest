@@ -8,6 +8,10 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Web.UI.WebControls;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
+using SqlConnection = System.Data.SqlClient.SqlConnection;
 
 namespace ApartmentRest
 {
@@ -65,29 +69,88 @@ namespace ApartmentRest
 
         }
 
+        public IList<Apartment> GetAllApartmentByLocation(string location)
+        {
+            string sqlstring = $"Select * from dbo.apartment like location = {location}";
 
-        //public IList<Apartment> GetAllApartmentByLocation(string location)
-        //{
-        //    string sqlstring = $"Select * from dbo.apartment like location = {location}";
+            using (SqlConnection sqlConnection = new SqlConnection(GetConnectionString()))
+            {
+                sqlConnection.Open();
+                using (var sqlcommand = new SqlCommand(sqlstring, sqlConnection))
+                {
+                    using (var reader = sqlcommand.ExecuteReader())
+                    {
+                        List<Apartment> liste = new List<Apartment>();
+                        while (reader.Read())
+                        {
+                            Apartment _apartment = ReadApartment(reader);
+                            liste.Add(_apartment);
+                        }
+                        return liste;
+                    }
+                }
+            }
+        }     
+         
+        public void UpdateApartment(string id, Apartment app)
+        {
+            string sqlstring = $"UPDATE Apartment SET column1 = {app.Price}, column2 = {app.PostalCode}, colum3 = {app.Size}, colum4 = {app.NoRoom}, colum5 = {app.WashingMachine}, colum6 = {app.Dishwasher}";
+            using (SqlConnection sqlConnection = new SqlConnection(GetConnectionString()))
+            {
+                sqlConnection.Open();
+                using (var sqlcommand = new SqlCommand(sqlstring,sqlConnection))
+                {
+                    SqlDataReader reader = sqlcommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        
+                    }
 
-        //    using (SqlConnection sqlConnection = new SqlConnection(GetConnectionString()))
-        //    {
-        //        sqlConnection.Open();
-        //        using (var sqlcommand = new SqlCommand(sqlstring, sqlConnection))
-        //        {
-        //            using (var reader = sqlcommand.ExecuteReader())
-        //            {
-        //                List<Apartment> liste = new List<Apartment>();
-        //                while (reader.Read())
-        //                {
-        //                    Apartment _apartment = ReadApartment(reader);
-        //                    liste.Add(_apartment);
-        //                }
-        //                return liste;
-        //            }
-        //        }
-        //    }
-        //}
+                }
+            }
+        }
+ 
+        public void Deleteaparment(string id)
+        {
+            string sqlstring = $"DELETE FROM aApartment where id = {id}";
+
+            using (SqlConnection sqlConnection = new SqlConnection(GetConnectionString()))
+            {
+                sqlConnection.Open();
+                using (var sqlcommand = new SqlCommand(sqlstring, sqlConnection))
+                {
+                    using (var reader = sqlcommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+        public void CreateAparment(Apartment app)
+        {
+            string sqlstring = $"INSERT INTO Apartment VALUES {app.Id}, {app.Price}, {app.Location}, {app.PostalCode}, {app.Size}, {app.NoRoom}, {app.WashingMachine}, {app.Dishwasher}";
+            using (SqlConnection sqlConnection = new SqlConnection(GetConnectionString()))
+            {
+                sqlConnection.Open();
+                using (var sqlcommand = new SqlCommand(sqlstring,sqlConnection) )
+                {
+                  SqlDataReader reader =  sqlcommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        
+                    }
+                }
+            }
+        }     
+
+
+
+
+
 
         //vores læse metode vi kan bruge sammen med reader - den sætter bare læste værdier ind på nyt obj
         private static Apartment ReadApartment(IDataRecord reader)

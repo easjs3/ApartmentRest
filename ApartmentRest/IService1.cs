@@ -23,15 +23,39 @@ namespace ApartmentRest
         [OperationContract]
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "apartment/{PostalCode}")]
+            UriTemplate = "apartment/postalcode/{PostalCode}")]
         IList<Apartment> GetApartmentByPostalCode(string PostalCode);
 
 
-        //[OperationContract]
-        //[WebInvoke(Method = "GET",
-        //    ResponseFormat = WebMessageFormat.Json,
-        //    UriTemplate = "apartment/{location}")]
-        //IList<Apartment> GetAllApartmentByLocation(string location);
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "apartment/location/{location}")]
+        IList<Apartment> GetAllApartmentByLocation(string location);
+
+
+        [OperationContract]
+        [WebInvoke(Method = "DELETE",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "apartment/{id}")]
+        void Deleteaparment(string id);
+
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            UriTemplate = "apartment/")]
+        void CreateAparment(Apartment app);
+
+
+        [OperationContract]
+        [WebInvoke(Method = "PUT",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "apartment/{id}")]
+        void UpdateApartment(string id, Apartment app);
 
     }
 
